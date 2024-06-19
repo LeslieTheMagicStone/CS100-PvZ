@@ -11,8 +11,8 @@
 #include "TextBase.hpp"
 #include "utils.hpp"
 
-
-class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld> {
+class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>
+{
 public:
   // Use shared_from_this() instead of "this" to create a pointer to oneself.
   GameWorld();
@@ -24,8 +24,8 @@ public:
 
   void CleanUp() override;
 
-private: 
-
+private:
+  std::list<std::shared_ptr<GameObject>> m_gameObjects;
 };
 
 #endif // !GAMEWORLD_HPP__
