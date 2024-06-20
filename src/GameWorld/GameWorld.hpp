@@ -11,6 +11,8 @@
 #include "TextBase.hpp"
 #include "utils.hpp"
 
+#include "SeedType.hpp"
+
 class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>
 {
 public:

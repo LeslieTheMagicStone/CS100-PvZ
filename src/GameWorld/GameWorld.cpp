@@ -1,4 +1,7 @@
 #include "GameWorld.hpp"
+#include "Background.hpp"
+#include "Sun.hpp"
+#include "PlantingSpot.hpp"
 
 GameWorld::GameWorld() {}
 

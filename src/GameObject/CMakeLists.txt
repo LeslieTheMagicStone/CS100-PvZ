@@ -5,6 +5,19 @@ add_library(
   STATIC
   GameObject.hpp
   GameObject.cpp
+  Background.hpp
+  Background.cpp
+  CooldownMask.hpp
+  CooldownMask.cpp
+  Plant.hpp
+  Plant.cpp
+  PlantingSpot.hpp
+  PlantingSpot.cpp
+  Seed.hpp
+  Seed.cpp
+  SeedType.hpp
+  Sun.hpp
+  Sun.cpp
 )
 
 target_link_libraries(
