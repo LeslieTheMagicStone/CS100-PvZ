@@ -12,6 +12,8 @@ void GameWorld::Init()
   m_sun = 50;
   // Init wave.
   m_wave = 0;
+  // Init selected seed.
+  m_selectedSeedType = SeedType::NONE;
   // Add a background.
   m_gameObjects.push_back(std::make_shared<Background>());
   // Add planting spots.
@@ -19,6 +21,8 @@ void GameWorld::Init()
     for (int col = 0; col < GAME_COLS; col++)
       m_gameObjects.push_back(
           std::make_shared<PlantingSpot>(shared_from_this(), FIRST_COL_CENTER + col * LAWN_GRID_WIDTH, FIRST_ROW_CENTER + row * LAWN_GRID_HEIGHT));
+  // Add seed selection buttons.
+  m_gameObjects.push_back(std::make_shared<SunflowerSeed>(shared_from_this(), 130, WINDOW_HEIGHT - 44));
 }
 
 LevelStatus GameWorld::Update()
@@ -47,6 +51,7 @@ LevelStatus GameWorld::Update()
 
 void GameWorld::CleanUp()
 {
+  m_selectedSeedType = SeedType::NONE;
   m_gameObjects.clear();
 }
 
@@ -58,4 +63,24 @@ void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
 void GameWorld::UpdateSun(int deltaValue)
 {
   m_sun += deltaValue;
+}
+
+bool GameWorld::TryCostSun(int cost)
+{
+  if (cost <= m_sun)
+  {
+    UpdateSun(-cost);
+    return true;
+  }
+  return false;
+}
+
+SeedType GameWorld::GetSelectedSeedType() const
+{
+  return m_selectedSeedType;
+}
+
+void GameWorld::SetSelectedSeedType(SeedType seedType)
+{
+  m_selectedSeedType = seedType;
 }

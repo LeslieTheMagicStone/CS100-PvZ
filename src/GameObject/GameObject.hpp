@@ -57,10 +57,10 @@ public:
   Plant(pGameWorld gameWorld, ImageID imageID, int x, int y, AnimID animID);
 };
 
-class SunFlower : public Plant
+class Sunflower : public Plant
 {
 public:
-  SunFlower(pGameWorld gameWorld, int x, int y);
+  Sunflower(pGameWorld gameWorld, int x, int y);
   void Update() override;
   void OnClick() override;
 
@@ -99,6 +99,31 @@ public:
 
 private:
   int m_ySpeed;
+};
+
+enum class SeedType
+{
+  NONE,
+  SUNFLOWER,
+  PEASHOOTER,
+};
+
+class Seed : public Generator
+{
+public:
+  Seed(pGameWorld gameWorld, ImageID imageID, int x, int y, SeedType seedType, int cost);
+  void Update() override;
+  void OnClick() override;
+
+private:
+  SeedType m_seedType;
+  int m_cost;
+};
+
+class SunflowerSeed : public Seed
+{
+public:
+  SunflowerSeed(pGameWorld gameWorld, int x, int y);
 };
 
 #endif // !GAMEOBJECT_HPP__

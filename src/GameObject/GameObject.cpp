@@ -20,14 +20,25 @@ void Background::OnClick() {}
 PlantingSpot::PlantingSpot(pGameWorld gameWorld, int x, int y)
     : Generator(gameWorld, IMGID_NONE, x, y, LAYER_UI, 60, 80, ANIMID_NO_ANIMATION) {}
 void PlantingSpot::Update() {}
-void PlantingSpot::OnClick() { Instantiate(std::make_shared<SunFlower>(m_gameWorld, GetX(), GetY())); }
+void PlantingSpot::OnClick()
+{
+    switch (m_gameWorld->GetSelectedSeedType())
+    {
+    case SeedType::NONE:
+        break;
+    case SeedType::SUNFLOWER:
+        Instantiate(std::make_shared<Sunflower>(m_gameWorld, GetX(), GetY()));
+        break;
+    }
+    m_gameWorld->SetSelectedSeedType(SeedType::NONE);
+}
 
 Plant::Plant(pGameWorld gameWorld, ImageID imageID, int x, int y, AnimID animID)
     : Generator(gameWorld, imageID, x, y, LAYER_PLANTS, 60, 80, animID) {}
 
-SunFlower::SunFlower(pGameWorld gameWorld, int x, int y)
+Sunflower::Sunflower(pGameWorld gameWorld, int x, int y)
     : Plant(gameWorld, IMGID_SUNFLOWER, x, y, ANIMID_IDLE_ANIM), sunTimerTicks(randInt(30, 600)) {}
-void SunFlower::Update()
+void Sunflower::Update()
 {
     if (GetDead())
         return;
@@ -39,7 +50,7 @@ void SunFlower::Update()
     else
         sunTimerTicks--;
 }
-void SunFlower::OnClick() {}
+void Sunflower::OnClick() {}
 
 Sun::Sun(pGameWorld gameWorld, int x, int y, int lifeTimeTicks)
     : GameObject(IMGID_SUN, x, y, LAYER_SUN, 80, 80, ANIMID_IDLE_ANIM), m_gameWorld(gameWorld), m_isGrounded(false), m_lifeTimeTicks(lifeTimeTicks), m_groundedTicks(0) {}
@@ -83,3 +94,15 @@ void GeneratedSun::Update()
         return;
     MoveTo(GetX() - 1, GetY() + (m_ySpeed--));
 }
+
+Seed::Seed(pGameWorld gameWorld, ImageID imageID, int x, int y, SeedType seedType, int cost)
+    : Generator(gameWorld, imageID, x, y, LAYER_UI, 50, 70, ANIMID_NO_ANIMATION), m_seedType(seedType), m_cost(cost) {}
+void Seed::OnClick()
+{
+    if (m_gameWorld->TryCostSun(m_cost))
+        m_gameWorld->SetSelectedSeedType(m_seedType);
+}
+void Seed::Update() {}
+
+SunflowerSeed::SunflowerSeed(pGameWorld gameWorld, int x, int y)
+    : Seed(gameWorld, IMGID_SEED_SUNFLOWER, x, y, SeedType::SUNFLOWER, 50) {}
