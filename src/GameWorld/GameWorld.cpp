@@ -6,6 +6,12 @@ GameWorld::~GameWorld() {}
 
 void GameWorld::Init()
 {
+  // Create instance
+  // m_instance = shared_from_this();
+  // Init time.
+  m_timeTicks = 0;
+  // Init sun.
+  m_sun = 0;
   // Add a background.
   m_gameObjects.push_back(std::make_shared<Background>());
   // Add planting spots.
@@ -17,7 +23,21 @@ void GameWorld::Init()
 
 LevelStatus GameWorld::Update()
 {
-  // YOUR CODE HERE
+  // 0. Update time.
+  m_timeTicks++;
+  // 1. Generate natural sun.
+  if (m_timeTicks % 300 == 180)
+    m_gameObjects.push_back(std::make_shared<NaturalSun>(shared_from_this(), randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1));
+
+  // 4. Update all game objects.
+  for (auto gameObject : m_gameObjects)
+    gameObject->Update();
+
+  // 6. Remove dead game objects.
+  m_gameObjects.remove_if([](auto gameObject)
+                          { return gameObject->GetDead(); });
+
+  // 10. Return the level status.
   return LevelStatus::ONGOING;
 }
 
@@ -29,4 +49,9 @@ void GameWorld::CleanUp()
 void GameWorld::Instantiate(std::shared_ptr<GameObject> gameObject)
 {
   m_gameObjects.push_back(gameObject);
+}
+
+void GameWorld::UpdateSun(int deltaValue)
+{
+  m_sun += deltaValue;
 }

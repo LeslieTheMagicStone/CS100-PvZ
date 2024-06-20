@@ -15,7 +15,12 @@ public:
 
   GameObject(ImageID imageID, int x, int y, LayerID layer, int width, int height, AnimID animID);
 
+  void Destroy();
+
+  bool GetDead() const;
+
 private:
+  bool m_isDead;
 };
 
 class Background : public GameObject
@@ -50,6 +55,29 @@ public:
   SunFlower(int x, int y);
   void Update() override;
   void OnClick() override;
+};
+
+class Sun : public GameObject
+{
+public:
+  Sun(pGameWorld gameWorld, int x, int y, int lifeTimeTicks);
+  void Update() override;
+  void OnClick() override;
+
+protected:
+  bool m_isGrounded;
+
+private:
+  pGameWorld m_gameWorld;
+  int m_lifeTimeTicks;
+  int m_groundedTicks;
+};
+
+class NaturalSun : public Sun
+{
+public:
+  NaturalSun(pGameWorld gameWorld, int x, int y);
+  void Update() override;
 };
 
 #endif // !GAMEOBJECT_HPP__

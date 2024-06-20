@@ -26,8 +26,15 @@ public:
 
   void Instantiate(std::shared_ptr<GameObject> gameObject);
 
+  void Destroy(std::shared_ptr<GameObject> gameObject);
+
+  void UpdateSun(int delta);
+
 private:
+  pGameWorld m_instance;
   std::list<std::shared_ptr<GameObject>> m_gameObjects;
+  long long m_timeTicks;
+  int m_sun;
 };
 
 #endif // !GAMEWORLD_HPP__
