@@ -3,7 +3,7 @@
 
 #include "GameObject.hpp"
 
-class Damageable
+class Damageable: public virtual GameObject
 {
 public:
     Damageable(int maxHealth, bool isEnemy);
