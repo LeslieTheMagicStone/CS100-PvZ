@@ -40,6 +40,12 @@ LevelStatus GameWorld::Update()
   for (auto gameObject : m_gameObjects)
     gameObject->Update();
 
+  // 5. Check for collisions.
+  for (auto damager : m_damagers)
+    for (auto damageable : m_damageables)
+      if (damager->GetIsEnemy() != damageable->GetIsEnemy() && damager->CheckColliding(damageable))
+        damager->OnCollision(damageable);
+
   // 6. Remove dead game objects.
   m_gameObjects.remove_if([](auto gameObject)
                           { return gameObject->GetDead(); });

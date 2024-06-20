@@ -13,6 +13,9 @@
 
 #include "SeedType.hpp"
 
+#include "Damager.hpp"
+#include "Damageable.hpp"
+
 class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>
 {
 public:
@@ -44,6 +47,8 @@ private:
   TextBase m_sunText = TextBase(61, WINDOW_HEIGHT - 80, "0", 0.3, 0.3, 0.4, true);
   TextBase m_waveText = TextBase(WINDOW_WIDTH - 130, 5, "Wave: 0", 0.2, 0.2, 0.3, false);
   SeedType m_selectedSeedType;
+  std::list<std::shared_ptr<Damager>> m_damagers;
+  std::list<std::shared_ptr<Damageable>> m_damageables;
 };
 
 #endif // !GAMEWORLD_HPP__
