@@ -46,7 +46,7 @@ void GameWorld::CleanUp()
   // YOUR CODE HERE
 }
 
-void GameWorld::Instantiate(std::shared_ptr<GameObject> gameObject)
+void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
 {
   m_gameObjects.push_back(gameObject);
 }

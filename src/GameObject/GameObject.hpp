@@ -23,6 +23,17 @@ private:
   bool m_isDead;
 };
 
+class Generator : public GameObject
+{
+public:
+  Generator(pGameWorld gameWorld, ImageID imageID, int x, int y, LayerID layer, int width, int height, AnimID animID);
+
+  void Instantiate(std::shared_ptr<GameObject> gameObject);
+
+protected:
+  pGameWorld m_gameWorld;
+};
+
 class Background : public GameObject
 {
 public:
@@ -31,30 +42,30 @@ public:
   void OnClick() override;
 };
 
-class PlantingSpot : public GameObject
+class PlantingSpot : public Generator
 {
-private:
-  pGameWorld m_gameWorld;
-
 public:
   PlantingSpot(pGameWorld gameWorld, int x, int y);
   void Update() override;
   void OnClick() override;
 };
 
-class Plant : public GameObject
+class Plant : public Generator
 {
 public:
   Plant() = delete;
-  Plant(ImageID imageID, int x, int y, AnimID animID);
+  Plant(pGameWorld gameWorld, ImageID imageID, int x, int y, AnimID animID);
 };
 
 class SunFlower : public Plant
 {
 public:
-  SunFlower(int x, int y);
+  SunFlower(pGameWorld gameWorld, int x, int y);
   void Update() override;
   void OnClick() override;
+
+private:
+  int sunTimerTicks;
 };
 
 class Sun : public GameObject
@@ -78,6 +89,16 @@ class NaturalSun : public Sun
 public:
   NaturalSun(pGameWorld gameWorld, int x, int y);
   void Update() override;
+};
+
+class GeneratedSun : public Sun
+{
+public:
+  GeneratedSun(pGameWorld gameWorld, int x, int y);
+  void Update() override;
+
+private:
+  int m_ySpeed;
 };
 
 #endif // !GAMEOBJECT_HPP__

@@ -24,9 +24,7 @@ public:
 
   void CleanUp() override;
 
-  void Instantiate(std::shared_ptr<GameObject> gameObject);
-
-  void Destroy(std::shared_ptr<GameObject> gameObject);
+  void AddToGameObjects(std::shared_ptr<GameObject> gameObject);
 
   void UpdateSun(int delta);
 
