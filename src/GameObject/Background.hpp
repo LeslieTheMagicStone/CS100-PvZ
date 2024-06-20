@@ -6,9 +6,9 @@
 class Background : public GameObject
 {
 public:
-    Background();
+    Background(pGameWorld _pGameWorld);
     void Update() override;
     void OnClick() override;
 };
 
-# endif // !BACKGROUND_HPP__
+#endif // !BACKGROUND_HPP__

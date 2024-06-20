@@ -4,10 +4,10 @@
 #include "GameObject.hpp"
 #include "SeedType.hpp"
 
-class Seed : public Generator
+class Seed : public GameObject
 {
 public:
-  Seed(pGameWorld gameWorld, ImageID imageID, int x, int y, SeedType seedType, int cost, int cooldownTicks);
+  Seed(pGameWorld _pGameWorld, ImageID imageID, int x, int y, SeedType seedType, int cost, int cooldownTicks);
   void Update() override;
   void OnClick() override;
 
@@ -20,7 +20,7 @@ private:
 class SunflowerSeed : public Seed
 {
 public:
-  SunflowerSeed(pGameWorld gameWorld, int x, int y);
+  SunflowerSeed(pGameWorld _pGameWorld, int x, int y);
 };
 
 #endif // !SEED_HPP__

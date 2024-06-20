@@ -1,8 +1,8 @@
 #include "Sun.hpp"
 #include "GameWorld.hpp"
 
-Sun::Sun(pGameWorld gameWorld, int x, int y, int lifeTimeTicks)
-    : GameObject(IMGID_SUN, x, y, LAYER_SUN, 80, 80, ANIMID_IDLE_ANIM), m_gameWorld(gameWorld), m_isGrounded(false), m_lifeTimeTicks(lifeTimeTicks), m_groundedTicks(0) {}
+Sun::Sun(pGameWorld _pGameWorld, int x, int y, int lifeTimeTicks)
+    : GameObject(_pGameWorld, IMGID_SUN, x, y, LAYER_SUN, 80, 80, ANIMID_IDLE_ANIM), m_isGrounded(false), m_lifeTimeTicks(lifeTimeTicks), m_groundedTicks(0) {}
 void Sun::Update()
 {
     if (!m_isGrounded && m_lifeTimeTicks == 0)
@@ -20,7 +20,7 @@ void Sun::Update()
 }
 void Sun::OnClick()
 {
-    m_gameWorld->UpdateSun(25);
+    m_pGameWorld->UpdateSun(25);
     Destroy();
 }
 

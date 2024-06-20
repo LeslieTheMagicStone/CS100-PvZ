@@ -6,7 +6,7 @@
 class CooldownMask : public GameObject
 {
 public:
-  CooldownMask(int x, int y, int lifeTimeTicks);
+  CooldownMask(pGameWorld _pGameWorld, int x, int y, int lifeTimeTicks);
   void Update() override;
   void OnClick() override;
 

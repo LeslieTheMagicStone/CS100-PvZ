@@ -1,6 +1,6 @@
 #include "GameObject.hpp"
 
-class Plant : public Generator
+class Plant : public GameObject
 {
 public:
     Plant() = delete;

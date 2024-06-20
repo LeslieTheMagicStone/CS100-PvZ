@@ -14,7 +14,6 @@ protected:
   bool m_isGrounded;
 
 private:
-  pGameWorld m_gameWorld;
   int m_lifeTimeTicks;
   int m_groundedTicks;
 };
@@ -22,14 +21,14 @@ private:
 class NaturalSun : public Sun
 {
 public:
-  NaturalSun(pGameWorld gameWorld, int x, int y);
+  NaturalSun(pGameWorld _pGameWorld, int x, int y);
   void Update() override;
 };
 
 class GeneratedSun : public Sun
 {
 public:
-  GeneratedSun(pGameWorld gameWorld, int x, int y);
+  GeneratedSun(pGameWorld _pGameWorld, int x, int y);
   void Update() override;
 
 private:

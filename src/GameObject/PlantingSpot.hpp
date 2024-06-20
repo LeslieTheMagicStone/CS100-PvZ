@@ -4,10 +4,10 @@
 #include "Plant.hpp"
 #include "Seed.hpp"
 
-class PlantingSpot : public Generator
+class PlantingSpot : public GameObject
 {
 public:
-  PlantingSpot(pGameWorld gameWorld, int x, int y);
+  PlantingSpot(pGameWorld _pGameWorld, int x, int y);
   void Update() override;
   void OnClick() override;
 };

@@ -18,7 +18,7 @@ void GameWorld::Init()
   // Init selected seed.
   m_selectedSeedType = SeedType::NONE;
   // Add a background.
-  m_gameObjects.push_back(std::make_shared<Background>());
+  m_gameObjects.push_back(std::make_shared<Background>(shared_from_this()));
   // Add planting spots.
   for (int row = 0; row < GAME_ROWS; row++)
     for (int col = 0; col < GAME_COLS; col++)
