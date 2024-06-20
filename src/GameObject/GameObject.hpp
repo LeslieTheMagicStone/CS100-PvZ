@@ -26,4 +26,12 @@ public:
   void OnClick() override;
 };
 
+class PlantingSpot : public GameObject
+{
+public:
+  PlantingSpot(int x, int y);
+  void Update() override;
+  void OnClick() override;
+};
+
 #endif // !GAMEOBJECT_HPP__
