@@ -111,19 +111,31 @@ enum class SeedType
 class Seed : public Generator
 {
 public:
-  Seed(pGameWorld gameWorld, ImageID imageID, int x, int y, SeedType seedType, int cost);
+  Seed(pGameWorld gameWorld, ImageID imageID, int x, int y, SeedType seedType, int cost, int cooldownTicks);
   void Update() override;
   void OnClick() override;
 
 private:
   SeedType m_seedType;
   int m_cost;
+  int m_cooldownTicks;
 };
 
 class SunflowerSeed : public Seed
 {
 public:
   SunflowerSeed(pGameWorld gameWorld, int x, int y);
+};
+
+class CooldownMask : public GameObject
+{
+public:
+  CooldownMask(int x, int y, int lifeTimeTicks);
+  void Update() override;
+  void OnClick() override;
+
+private:
+  int m_lifeTimeTicks;
 };
 
 #endif // !GAMEOBJECT_HPP__
