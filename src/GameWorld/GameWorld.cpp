@@ -6,12 +6,12 @@ GameWorld::~GameWorld() {}
 
 void GameWorld::Init()
 {
-  // Create instance
-  // m_instance = shared_from_this();
   // Init time.
   m_timeTicks = 0;
   // Init sun.
-  m_sun = 0;
+  m_sun = 50;
+  // Init wave.
+  m_wave = 0;
   // Add a background.
   m_gameObjects.push_back(std::make_shared<Background>());
   // Add planting spots.
@@ -37,13 +37,17 @@ LevelStatus GameWorld::Update()
   m_gameObjects.remove_if([](auto gameObject)
                           { return gameObject->GetDead(); });
 
+  // 9. Update text UIs.
+  m_sunText.SetText(std::to_string(m_sun));
+  m_waveText.SetText("Wave: " + std::to_string(m_wave));
+
   // 10. Return the level status.
   return LevelStatus::ONGOING;
 }
 
 void GameWorld::CleanUp()
 {
-  // YOUR CODE HERE
+  m_gameObjects.clear();
 }
 
 void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
