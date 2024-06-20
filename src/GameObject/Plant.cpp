@@ -1,11 +1,11 @@
 #include "Plant.hpp"
 #include "Sun.hpp"
 
-Plant::Plant(pGameWorld gameWorld, ImageID imageID, int x, int y, AnimID animID)
-    : GameObject(gameWorld, imageID, x, y, LAYER_PLANTS, 60, 80, animID) {}
+Plant::Plant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID)
+    : GameObject(_pGameWorld, imageID, x, y, LAYER_PLANTS, 60, 80, animID) {}
 
-Sunflower::Sunflower(pGameWorld gameWorld, int x, int y)
-    : Plant(gameWorld, IMGID_SUNFLOWER, x, y, ANIMID_IDLE_ANIM), sunTimerTicks(randInt(30, 600)) {}
+Sunflower::Sunflower(pGameWorld _pGameWorld, int x, int y)
+    : Plant(_pGameWorld, IMGID_SUNFLOWER, x, y, ANIMID_IDLE_ANIM), sunTimerTicks(randInt(30, 600)) {}
 
 void Sunflower::Update()
 {

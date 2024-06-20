@@ -24,8 +24,8 @@ void Sun::OnClick()
     Destroy();
 }
 
-NaturalSun::NaturalSun(pGameWorld gameWorld, int x, int y)
-    : Sun(gameWorld, x, y, randInt(63, 263)) {}
+NaturalSun::NaturalSun(pGameWorld _pGameWorld, int x, int y)
+    : Sun(_pGameWorld, x, y, randInt(63, 263)) {}
 void NaturalSun::Update()
 {
     Sun::Update();
@@ -34,8 +34,8 @@ void NaturalSun::Update()
     MoveTo(GetX(), GetY() - 2);
 }
 
-GeneratedSun::GeneratedSun(pGameWorld gameWorld, int x, int y)
-    : Sun(gameWorld, x, y, 12), m_ySpeed(4) {}
+GeneratedSun::GeneratedSun(pGameWorld _pGameWorld, int x, int y)
+    : Sun(_pGameWorld, x, y, 12), m_ySpeed(4) {}
 void GeneratedSun::Update()
 {
     Sun::Update();

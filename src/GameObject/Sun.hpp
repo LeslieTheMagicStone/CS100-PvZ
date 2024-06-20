@@ -6,7 +6,7 @@
 class Sun : public GameObject
 {
 public:
-  Sun(pGameWorld gameWorld, int x, int y, int lifeTimeTicks);
+  Sun(pGameWorld _pGameWorld, int x, int y, int lifeTimeTicks);
   void Update() override;
   void OnClick() override;
 
