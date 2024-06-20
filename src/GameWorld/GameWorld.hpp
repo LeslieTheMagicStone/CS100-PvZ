@@ -24,6 +24,8 @@ public:
 
   void CleanUp() override;
 
+  void Instantiate(std::shared_ptr<GameObject> gameObject);
+
 private:
   std::list<std::shared_ptr<GameObject>> m_gameObjects;
 };

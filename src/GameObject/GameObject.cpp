@@ -1,4 +1,5 @@
 #include "GameObject.hpp"
+#include "GameWorld.hpp"
 
 // Your everything begins from here.
 GameObject::GameObject(const ImageID imageID, int x, int y, LayerID layer, int width, int height, AnimID animID)
@@ -9,7 +10,15 @@ Background::Background()
 void Background::Update() {}
 void Background::OnClick() {}
 
-PlantingSpot::PlantingSpot(int x, int y)
-    : GameObject(IMGID_NONE, x, y, LAYER_UI, 60, 80, ANIMID_NO_ANIMATION) {}
+PlantingSpot::PlantingSpot(pGameWorld gameWorld, int x, int y)
+    : GameObject(IMGID_NONE, x, y, LAYER_UI, 60, 80, ANIMID_NO_ANIMATION), m_gameWorld(gameWorld) {}
 void PlantingSpot::Update() {}
-void PlantingSpot::OnClick() {}
+void PlantingSpot::OnClick() { m_gameWorld->Instantiate(std::make_shared<SunFlower>(GetX(), GetY())); }
+
+Plant::Plant(ImageID imageID, int x, int y, AnimID animID)
+    : GameObject(imageID, x, y, LAYER_PLANTS, 60, 80, animID) {}
+
+SunFlower::SunFlower(int x, int y)
+    : Plant(IMGID_SUNFLOWER, x, y, ANIMID_IDLE_ANIM) {}
+void SunFlower::Update() {}
+void SunFlower::OnClick() {}

@@ -28,8 +28,26 @@ public:
 
 class PlantingSpot : public GameObject
 {
+private:
+  pGameWorld m_gameWorld;
+
 public:
-  PlantingSpot(int x, int y);
+  PlantingSpot(pGameWorld gameWorld, int x, int y);
+  void Update() override;
+  void OnClick() override;
+};
+
+class Plant : public GameObject
+{
+public:
+  Plant() = delete;
+  Plant(ImageID imageID, int x, int y, AnimID animID);
+};
+
+class SunFlower : public Plant
+{
+public:
+  SunFlower(int x, int y);
   void Update() override;
   void OnClick() override;
 };
