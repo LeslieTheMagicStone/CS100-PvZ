@@ -36,6 +36,11 @@ void GameWorld::Init()
   AddToGameObjects(std::make_shared<RepeaterSeed>(shared_from_this(), 370, WINDOW_HEIGHT - 44));
   // Add shovel.
   AddToGameObjects(std::make_shared<Shovel>(shared_from_this(), 600, WINDOW_HEIGHT - 40));
+
+  // Init text UIs.
+  m_sunText.SetText("");
+  m_waveText.SetText("");
+  m_wavesSurvivedText.SetText("");
 }
 
 LevelStatus GameWorld::Update()
@@ -96,6 +101,16 @@ LevelStatus GameWorld::Update()
   m_eatablePlants.remove_if(IsDead);
   m_zombies.remove_if(IsDead);
 
+  // 7. Check game over.
+  for (auto zombie : m_zombies)
+    if (zombie->GetX() < 0)
+    {
+      m_sunText.SetText("");
+      m_waveText.SetText("");
+      m_wavesSurvivedText.SetText(std::to_string(m_wave));
+      return LevelStatus::LOSING;
+    }
+
   // 9. Update text UIs.
   m_sunText.SetText(std::to_string(m_sun));
   m_waveText.SetText("Wave: " + std::to_string(m_wave));
@@ -108,6 +123,8 @@ void GameWorld::CleanUp()
 {
   m_selectedActionType = ActionType::NONE;
   m_gameObjects.clear();
+  m_eatablePlants.clear();
+  m_zombies.clear();
 }
 
 void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
