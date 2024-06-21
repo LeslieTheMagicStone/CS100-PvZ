@@ -20,6 +20,9 @@ int Zombie::GetHealth() const { return m_health; }
 
 void Zombie::TakeDamage(int damage)
 {
+    if (GetDead())
+        return;
+
     if (m_health > damage)
         m_health -= damage;
     else

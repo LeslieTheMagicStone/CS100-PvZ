@@ -15,8 +15,12 @@ bool GameObject::GetDead() const { return m_isDead; }
 
 void GameObject::Instantiate(pGameObject gameObject) { m_pGameWorld->AddToGameObjects(gameObject); }
 
-bool GameObject::CheckCollision(pGameObject other)
+bool GameObject::CheckCollision(pConstGameObject other) const
 {
+    if (other == shared_from_this())
+        return false;
+    if (GetDead())
+        return false;
     bool collidingX = std::abs(GetX() - other->GetX()) < GetWidth() / 2 + other->GetWidth() / 2;
     bool collidingY = std::abs(GetY() - other->GetY()) < GetHeight() / 2 + other->GetHeight() / 2;
     return collidingX && collidingY;

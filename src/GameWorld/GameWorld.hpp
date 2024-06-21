@@ -12,9 +12,11 @@
 #include "utils.hpp"
 
 #include "ActionType.hpp"
+#include "CollisionCheckTag.hpp"
 
 class Zombie;
 class EatablePlant;
+class Projectile;
 
 class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>
 {
@@ -38,6 +40,8 @@ public:
   ActionType GetSelectedActionType() const;
   void SetSelectedActionType(ActionType actionType);
 
+  bool CheckZombieCollision(pConstGameObject gameObject) const;
+
 private:
   pGameWorld m_instance;
   std::list<std::shared_ptr<GameObject>> m_gameObjects;
@@ -50,6 +54,7 @@ private:
   int m_waveTimerTicks;
   std::list<std::shared_ptr<EatablePlant>> m_eatablePlants;
   std::list<std::shared_ptr<Zombie>> m_zombies;
+  std::list<std::shared_ptr<Projectile>> m_projectiles;
   TextBase m_wavesSurvivedText = TextBase(WINDOW_WIDTH / 2 - 67, 50, "", 1, 1, 1, true);
 };
 

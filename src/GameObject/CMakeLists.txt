@@ -23,6 +23,10 @@ add_library(
   Zombie.hpp
   Zombie.cpp
   CollisionCheckTag.hpp
+  Projectile.hpp
+  Projectile.cpp
+  SimpleCollisionBox.hpp
+  SimpleCollisionBox.cpp
 )
 
 target_link_libraries(

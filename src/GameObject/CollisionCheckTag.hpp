@@ -6,6 +6,7 @@ enum class CollisionCheckTag
   NONE,
   EATABLEPLANT,
   ZOMBIE,
+  PROJECTILE,
 };
 
 #endif // !COLLISIONCHECKTAG_HPP__

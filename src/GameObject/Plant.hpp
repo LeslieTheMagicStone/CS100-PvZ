@@ -36,10 +36,24 @@ private:
     int m_sunTimerTicks;
 };
 
-class Peashooter : public EatablePlant
+class Shooter : public EatablePlant
+{
+public:
+    Shooter(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID, int maxHealth, int shootIntervalTicks);
+
+    void OnDestroy() override;
+
+    bool GetHasTarget();
+
+private:
+    pGameObject m_pShootRangeIndicator;
+};
+
+class Peashooter : public Shooter
 {
 public:
     Peashooter(pGameWorld _pGameWorld, int x, int y);
+
     void Update() override;
 
 private:
@@ -50,6 +64,7 @@ class Wallnut : public EatablePlant
 {
 public:
     Wallnut(pGameWorld _pGameWorld, int x, int y);
+
     void Update() override;
 };
 
@@ -57,20 +72,26 @@ class CherryBomb : public Plant
 {
 public:
     CherryBomb(pGameWorld _pGameWorld, int x, int y);
+
     void Update() override;
 
 private:
     int m_timerTicks;
 };
 
-class Repeater : public EatablePlant
+class Repeater : public Shooter
 {
 public:
     Repeater(pGameWorld _pGameWorld, int x, int y);
+
     void Update() override;
 
 private:
-    int shootTimerTicks;
+    int m_shootTimerTicks;
+    int m_remainingShots;
+    int m_continuousShootTimerTicks;
+
+    void ShootPea();
 };
 
 #endif // !PLANT_HPP__

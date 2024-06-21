@@ -4,6 +4,7 @@
 #include "PlantingSpot.hpp"
 #include "Shovel.hpp"
 #include "Zombie.hpp"
+#include "Projectile.hpp"
 
 GameWorld::GameWorld() {}
 
@@ -95,10 +96,17 @@ LevelStatus GameWorld::Update()
       {
         isEating = true;
         plant->TakeDamage(zombie->GetDamage());
-        break;
       }
     zombie->SetEating(isEating);
   }
+  // Projectiles -> Zombies.
+  for (auto projectile : m_projectiles)
+    for (auto zombie : m_zombies)
+      if (projectile->CheckCollision(zombie))
+      {
+        projectile->OnCollision();
+        zombie->TakeDamage(projectile->GetDamage());
+      }
 
   // 6. Remove dead game objects.
   auto IsDead = [](auto gameObject)
@@ -106,6 +114,7 @@ LevelStatus GameWorld::Update()
   m_gameObjects.remove_if(IsDead);
   m_eatablePlants.remove_if(IsDead);
   m_zombies.remove_if(IsDead);
+  m_projectiles.remove_if(IsDead);
 
   // 7. Check game over.
   for (auto zombie : m_zombies)
@@ -133,6 +142,7 @@ void GameWorld::CleanUp()
   m_gameObjects.clear();
   m_eatablePlants.clear();
   m_zombies.clear();
+  m_projectiles.clear();
 }
 
 void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
@@ -141,6 +151,8 @@ void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
     m_eatablePlants.push_back(std::dynamic_pointer_cast<EatablePlant>(gameObject));
   else if (gameObject->GetCollisionCheckTag() == CollisionCheckTag::ZOMBIE)
     m_zombies.push_back(std::dynamic_pointer_cast<Zombie>(gameObject));
+  else if (gameObject->GetCollisionCheckTag() == CollisionCheckTag::PROJECTILE)
+    m_projectiles.push_back(std::dynamic_pointer_cast<Projectile>(gameObject));
   m_gameObjects.push_back(gameObject);
 }
 
@@ -167,4 +179,12 @@ ActionType GameWorld::GetSelectedActionType() const
 void GameWorld::SetSelectedActionType(ActionType seedType)
 {
   m_selectedActionType = seedType;
+}
+
+bool GameWorld::CheckZombieCollision(pConstGameObject gameObject) const
+{
+    for (auto other : m_zombies)
+      if (gameObject->CheckCollision(other))
+        return true;
+  return false;
 }

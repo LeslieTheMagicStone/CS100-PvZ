@@ -11,6 +11,7 @@ using pGameWorld = std::shared_ptr<GameWorld>;
 
 class GameObject;
 using pGameObject = std::shared_ptr<GameObject>;
+using pConstGameObject = std::shared_ptr<const GameObject>;
 
 class GameObject : public ObjectBase, public std::enable_shared_from_this<GameObject>
 {
@@ -25,7 +26,7 @@ public:
 
   void Instantiate(pGameObject gameObject);
 
-  bool CheckCollision(pGameObject other);
+  bool CheckCollision(pConstGameObject other) const;
 
   CollisionCheckTag GetCollisionCheckTag() const;
 
