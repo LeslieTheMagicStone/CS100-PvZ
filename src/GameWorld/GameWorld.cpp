@@ -42,6 +42,8 @@ void GameWorld::Init()
   m_sunText.SetText("");
   m_waveText.SetText("");
   m_wavesSurvivedText.SetText("");
+
+  AddToGameObjects(std::make_shared<PoleVaultingZombie>(shared_from_this(), WINDOW_WIDTH, FIRST_ROW_CENTER));
 }
 
 LevelStatus GameWorld::Update()
@@ -186,5 +188,13 @@ bool GameWorld::CheckZombieCollision(pConstGameObject gameObject) const
     for (auto other : m_zombies)
       if (gameObject->CheckCollision(other))
         return true;
+  return false;
+}
+
+bool GameWorld::CheckEatablePlantCollision(pConstGameObject gameObject) const
+{
+  for (auto other : m_eatablePlants)
+    if (gameObject->CheckCollision(other))
+      return true;
   return false;
 }

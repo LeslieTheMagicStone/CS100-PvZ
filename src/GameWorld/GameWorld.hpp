@@ -41,6 +41,7 @@ public:
   void SetSelectedActionType(ActionType actionType);
 
   bool CheckZombieCollision(pConstGameObject gameObject) const;
+  bool CheckEatablePlantCollision(pConstGameObject gameObject) const;
 
 private:
   pGameWorld m_instance;
