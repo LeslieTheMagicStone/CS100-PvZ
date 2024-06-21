@@ -66,6 +66,9 @@ public:
     Wallnut(pGameWorld _pGameWorld, int x, int y);
 
     void Update() override;
+
+private:
+    bool m_isCracked;
 };
 
 class CherryBomb : public Plant

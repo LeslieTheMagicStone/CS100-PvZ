@@ -85,9 +85,19 @@ void Peashooter::Update()
 }
 
 Wallnut::Wallnut(pGameWorld _pGameWorld, int x, int y)
-    : EatablePlant(_pGameWorld, IMGID_WALLNUT, x, y, ANIMID_IDLE_ANIM, 4000) {}
+    : EatablePlant(_pGameWorld, IMGID_WALLNUT, x, y, ANIMID_IDLE_ANIM, 4000), m_isCracked(false) {}
 
-void Wallnut::Update() {}
+void Wallnut::Update()
+{
+    if (GetDead())
+        return;
+        
+    if (!m_isCracked && GetHealth() * 3 < GetMaxHealth())
+    {
+        ChangeImage(IMGID_WALLNUT_CRACKED);
+        m_isCracked = true;
+    }
+}
 
 CherryBomb::CherryBomb(pGameWorld _pGameWorld, int x, int y)
     : Plant(_pGameWorld, IMGID_CHERRY_BOMB, x, y, ANIMID_IDLE_ANIM), m_timerTicks(15) {}
