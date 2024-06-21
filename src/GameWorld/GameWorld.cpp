@@ -2,6 +2,7 @@
 #include "Background.hpp"
 #include "Sun.hpp"
 #include "PlantingSpot.hpp"
+#include "Shovel.hpp"
 
 GameWorld::GameWorld() {}
 
@@ -16,7 +17,7 @@ void GameWorld::Init()
   // Init wave.
   m_wave = 0;
   // Init selected seed.
-  m_selectedSeedType = SeedType::NONE;
+  m_selectedActionType = ActionType::NONE;
   // Add a background.
   m_gameObjects.push_back(std::make_shared<Background>(shared_from_this()));
   // Add planting spots.
@@ -30,8 +31,8 @@ void GameWorld::Init()
   m_gameObjects.push_back(std::make_shared<WallnutSeed>(shared_from_this(), 250, WINDOW_HEIGHT - 44));
   m_gameObjects.push_back(std::make_shared<CherryBombSeed>(shared_from_this(), 310, WINDOW_HEIGHT - 44));
   m_gameObjects.push_back(std::make_shared<RepeaterSeed>(shared_from_this(), 370, WINDOW_HEIGHT - 44));
-
-  // m_gameObjects.push_back(std::make_shared<Pea>(shared_from_this(), 100, 100, false));
+  // Add shovel.
+  m_gameObjects.push_back(std::make_shared<Shovel>(shared_from_this(), 600, WINDOW_HEIGHT - 40));
 }
 
 LevelStatus GameWorld::Update()
@@ -60,7 +61,7 @@ LevelStatus GameWorld::Update()
 
 void GameWorld::CleanUp()
 {
-  m_selectedSeedType = SeedType::NONE;
+  m_selectedActionType = ActionType::NONE;
   m_gameObjects.clear();
 }
 
@@ -84,12 +85,12 @@ bool GameWorld::TryCostSun(int cost)
   return false;
 }
 
-SeedType GameWorld::GetSelectedSeedType() const
+ActionType GameWorld::GetSelectedActionType() const
 {
-  return m_selectedSeedType;
+  return m_selectedActionType;
 }
 
-void GameWorld::SetSelectedSeedType(SeedType seedType)
+void GameWorld::SetSelectedActionType(ActionType seedType)
 {
-  m_selectedSeedType = seedType;
+  m_selectedActionType = seedType;
 }

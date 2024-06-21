@@ -11,7 +11,7 @@
 #include "TextBase.hpp"
 #include "utils.hpp"
 
-#include "SeedType.hpp"
+#include "ActionType.hpp"
 
 class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>
 {
@@ -32,8 +32,8 @@ public:
 
   bool TryCostSun(int cost);
 
-  SeedType GetSelectedSeedType() const;
-  void SetSelectedSeedType(SeedType SeedType);
+  ActionType GetSelectedActionType() const;
+  void SetSelectedActionType(ActionType actionType);
 
 private:
   pGameWorld m_instance;
@@ -43,7 +43,7 @@ private:
   int m_wave;
   TextBase m_sunText = TextBase(61, WINDOW_HEIGHT - 80, "0", 0.3, 0.3, 0.4, true);
   TextBase m_waveText = TextBase(WINDOW_WIDTH - 130, 5, "Wave: 0", 0.2, 0.2, 0.3, false);
-  SeedType m_selectedSeedType;
+  ActionType m_selectedActionType;
 };
 
 #endif // !GAMEWORLD_HPP__

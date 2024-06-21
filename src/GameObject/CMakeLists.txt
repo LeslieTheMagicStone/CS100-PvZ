@@ -15,9 +15,11 @@ add_library(
   PlantingSpot.cpp
   Seed.hpp
   Seed.cpp
-  SeedType.hpp
+  ActionType.hpp
   Sun.hpp
   Sun.cpp
+  Shovel.hpp
+  Shovel.cpp
 )
 
 target_link_libraries(

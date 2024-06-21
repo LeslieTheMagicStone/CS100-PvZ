@@ -1,9 +1,10 @@
 #ifndef SEEDTYPE_HPP__
 #define SEEDTYPE_HPP__
 
-enum class SeedType
+enum class ActionType
 {
   NONE,
+  SHOVEL,
   SUNFLOWER,
   PEASHOOTER,
   WALLNUT,

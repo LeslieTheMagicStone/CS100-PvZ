@@ -8,6 +8,8 @@ class Plant : public GameObject
 public:
     Plant() = delete;
     Plant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID);
+
+    void OnClick() override;
 };
 
 class EatablePlant : public Plant
@@ -29,7 +31,6 @@ class Sunflower : public EatablePlant
 public:
     Sunflower(pGameWorld _pGameWorld, int x, int y);
     void Update() override;
-    void OnClick() override;
 
 private:
     int m_sunTimerTicks;
@@ -40,7 +41,6 @@ class Peashooter : public EatablePlant
 public:
     Peashooter(pGameWorld _pGameWorld, int x, int y);
     void Update() override;
-    void OnClick() override;
 
 private:
     int m_shootTimerTicks;
@@ -51,7 +51,6 @@ class Wallnut : public EatablePlant
 public:
     Wallnut(pGameWorld _pGameWorld, int x, int y);
     void Update() override;
-    void OnClick() override;
 };
 
 class CherryBomb : public Plant
@@ -59,7 +58,6 @@ class CherryBomb : public Plant
 public:
     CherryBomb(pGameWorld _pGameWorld, int x, int y);
     void Update() override;
-    void OnClick() override;
 
 private:
     int m_timerTicks;
@@ -70,10 +68,9 @@ class Repeater : public EatablePlant
 public:
     Repeater(pGameWorld _pGameWorld, int x, int y);
     void Update() override;
-    void OnClick() override;
 
 private:
-    int m_shootTimerTicks;
+    int shootTimerTicks;
 };
 
 #endif // !PLANT_HPP__

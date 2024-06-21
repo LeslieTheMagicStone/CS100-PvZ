@@ -2,17 +2,17 @@
 #define SEED_HPP__
 
 #include "GameObject.hpp"
-#include "SeedType.hpp"
+#include "ActionType.hpp"
 
 class Seed : public GameObject
 {
 public:
-  Seed(pGameWorld _pGameWorld, ImageID imageID, int x, int y, SeedType seedType, int cost, int cooldownTicks);
+  Seed(pGameWorld _pGameWorld, ImageID imageID, int x, int y, ActionType actionType, int cost, int cooldownTicks);
   void Update() override;
   void OnClick() override;
 
 private:
-  SeedType m_seedType;
+  ActionType m_actionType;
   int m_cost;
   int m_cooldownTicks;
 };

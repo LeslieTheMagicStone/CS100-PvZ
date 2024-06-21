@@ -10,6 +10,9 @@ public:
   PlantingSpot(pGameWorld _pGameWorld, int x, int y);
   void Update() override;
   void OnClick() override;
+
+private:
+  void Plant(pGameObject _pGameObject);
 };
 
 #endif // !PLANTINGSPOT_HPP__
