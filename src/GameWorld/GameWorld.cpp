@@ -17,6 +17,8 @@ void GameWorld::Init()
   m_sun = 500;
   // Init wave.
   m_wave = 0;
+  // Init wave timer.
+  m_waveTimerTicks = 1200;
   // Init selected seed.
   m_selectedActionType = ActionType::NONE;
   // Add a background.
@@ -38,17 +40,37 @@ void GameWorld::Init()
 
 LevelStatus GameWorld::Update()
 {
-  if (randInt(1, 10) == 1)
-  {
-    int randRow = randInt(0, GAME_ROWS - 1);
-    m_gameObjects.push_back(std::make_shared<RegularZombie>(shared_from_this(), WINDOW_WIDTH - 1, FIRST_ROW_CENTER + randRow * LAWN_GRID_HEIGHT));
-  }
   // 0. Update time.
   m_timeTicks++;
   // 1. Generate natural sun.
   if (m_timeTicks % 300 == 180)
     m_gameObjects.push_back(std::make_shared<NaturalSun>(shared_from_this(), randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1));
-
+  // 2. Determine whether to generate zombies.
+  int zombieCount = 0;
+  if (m_waveTimerTicks == 0)
+  {
+    m_wave++;
+    m_waveTimerTicks = std::max(150, 600 - 20 * m_wave);
+    zombieCount = (15 + m_wave) / 10;
+  }
+  m_waveTimerTicks--;
+  // 3. Generate zombies.
+  int P1 = 20;
+  int P2 = 2 * std::max(m_wave - 8, 0);
+  int P3 = 3 * std::max(m_wave - 15, 0);
+  for (int i = 0; i < zombieCount; i++)
+  {
+    int randNum = randInt(1, P1 + P2 + P3);
+    int randRow = randInt(0, GAME_ROWS - 1);
+    int randX = randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1);
+    int randY = FIRST_ROW_CENTER + randRow * LAWN_GRID_HEIGHT;
+    if (randNum <= P1)
+      m_gameObjects.push_back(std::make_shared<RegularZombie>(shared_from_this(), randX, randY));
+    else if (randNum <= P1 + P2)
+      m_gameObjects.push_back(std::make_shared<PoleVaultingZombie>(shared_from_this(), randX, randY));
+    else
+      m_gameObjects.push_back(std::make_shared<BucketHeadZombie>(shared_from_this(), randX, randY));
+  }
   // 4. Update all game objects.
   for (auto gameObject : m_gameObjects)
     gameObject->Update();

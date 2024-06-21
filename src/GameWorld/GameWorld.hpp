@@ -44,6 +44,7 @@ private:
   TextBase m_sunText = TextBase(61, WINDOW_HEIGHT - 80, "0", 0.3, 0.3, 0.4, true);
   TextBase m_waveText = TextBase(WINDOW_WIDTH - 130, 5, "Wave: 0", 0.2, 0.2, 0.3, false);
   ActionType m_selectedActionType;
+  int m_waveTimerTicks;
 };
 
 #endif // !GAMEWORLD_HPP__
