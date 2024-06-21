@@ -17,3 +17,6 @@ void Seed::Update() {}
 
 SunflowerSeed::SunflowerSeed(pGameWorld _pGameWorld, int x, int y)
     : Seed(_pGameWorld, IMGID_SEED_SUNFLOWER, x, y, SeedType::SUNFLOWER, 50, 240) {}
+
+PeashooterSeed::PeashooterSeed(pGameWorld _pGameWorld, int x, int y)
+    : Seed(_pGameWorld, IMGID_SEED_PEASHOOTER, x, y, SeedType::PEASHOOTER, 100, 240) {}

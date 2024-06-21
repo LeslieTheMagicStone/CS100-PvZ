@@ -11,6 +11,7 @@ void Sunflower::Update()
 {
     if (GetDead())
         return;
+
     if (sunTimerTicks == 0)
     {
         Instantiate(std::make_shared<GeneratedSun>(m_pGameWorld, GetX(), GetY()));
@@ -21,3 +22,16 @@ void Sunflower::Update()
 }
 
 void Sunflower::OnClick() {}
+
+Peashooter::Peashooter(pGameWorld _pGameWorld, int x, int y)
+    : Plant(_pGameWorld, IMGID_PEASHOOTER, x, y, ANIMID_IDLE_ANIM), shootTimerTicks(0) {}
+
+void Peashooter::Update()
+{
+    if (GetDead())
+        return;
+
+    // Instantiate(std::make_shared<Pea>(m_pGameWorld, GetX() + 30, GetY(), false));
+}
+
+void Peashooter::OnClick() {}

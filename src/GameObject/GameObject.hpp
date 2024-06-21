@@ -8,6 +8,9 @@
 class GameWorld;
 using pGameWorld = std::shared_ptr<GameWorld>;
 
+class GameObject;
+using pGameObject = std::shared_ptr<GameObject>;
+
 class GameObject : public ObjectBase, public std::enable_shared_from_this<GameObject>
 {
 public:
@@ -19,7 +22,9 @@ public:
 
   bool GetDead() const;
 
-  void Instantiate(std::shared_ptr<GameObject> gameObject);
+  void Instantiate(pGameObject gameObject);
+
+  bool CheckCollision(pGameObject other);
 
 protected:
   pGameWorld m_pGameWorld;

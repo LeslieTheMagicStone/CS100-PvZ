@@ -23,4 +23,10 @@ public:
   SunflowerSeed(pGameWorld _pGameWorld, int x, int y);
 };
 
+class PeashooterSeed : public Seed
+{
+public:
+  PeashooterSeed(pGameWorld _pGameWorld, int x, int y);
+};
+
 #endif // !SEED_HPP__

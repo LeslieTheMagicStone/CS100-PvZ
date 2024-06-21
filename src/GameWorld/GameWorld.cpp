@@ -12,7 +12,7 @@ void GameWorld::Init()
   // Init time.
   m_timeTicks = 0;
   // Init sun.
-  m_sun = 50;
+  m_sun = 500;
   // Init wave.
   m_wave = 0;
   // Init selected seed.
@@ -26,6 +26,9 @@ void GameWorld::Init()
           std::make_shared<PlantingSpot>(shared_from_this(), FIRST_COL_CENTER + col * LAWN_GRID_WIDTH, FIRST_ROW_CENTER + row * LAWN_GRID_HEIGHT));
   // Add seed selection buttons.
   m_gameObjects.push_back(std::make_shared<SunflowerSeed>(shared_from_this(), 130, WINDOW_HEIGHT - 44));
+  m_gameObjects.push_back(std::make_shared<PeashooterSeed>(shared_from_this(), 190, WINDOW_HEIGHT - 44));
+
+  // m_gameObjects.push_back(std::make_shared<Pea>(shared_from_this(), 100, 100, false));
 }
 
 LevelStatus GameWorld::Update()
@@ -39,12 +42,6 @@ LevelStatus GameWorld::Update()
   // 4. Update all game objects.
   for (auto gameObject : m_gameObjects)
     gameObject->Update();
-
-  // 5. Check for collisions.
-  for (auto damager : m_damagers)
-    for (auto damageable : m_damageables)
-      if (damager->GetIsEnemy() != damageable->GetIsEnemy() && damager->CheckColliding(damageable))
-        damager->OnCollision(damageable);
 
   // 6. Remove dead game objects.
   m_gameObjects.remove_if([](auto gameObject)

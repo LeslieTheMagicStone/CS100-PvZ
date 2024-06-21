@@ -15,6 +15,9 @@ void PlantingSpot::OnClick()
     case SeedType::SUNFLOWER:
         Instantiate(std::make_shared<Sunflower>(m_pGameWorld, GetX(), GetY()));
         break;
+    case SeedType::PEASHOOTER:
+        Instantiate(std::make_shared<Peashooter>(m_pGameWorld, GetX(), GetY()));
+        break;
     }
     m_pGameWorld->SetSelectedSeedType(SeedType::NONE);
 }

@@ -9,4 +9,13 @@ void GameObject::Destroy() { m_isDead = true; }
 
 bool GameObject::GetDead() const { return m_isDead; }
 
-void GameObject::Instantiate(std::shared_ptr<GameObject> gameObject) { m_pGameWorld->AddToGameObjects(gameObject); }
+void GameObject::Instantiate(pGameObject gameObject) { m_pGameWorld->AddToGameObjects(gameObject); }
+
+bool GameObject::CheckCollision(pGameObject other)
+{
+    bool collidingX = (GetX() + GetWidth() / 2 > other->GetX() - other->GetWidth() / 2) ||
+                      (other->GetX() + other->GetWidth() / 2 > GetX() - GetWidth() / 2);
+    bool collidingY = (GetY() + GetHeight() / 2 > other->GetY() - other->GetHeight() / 2) ||
+                      (other->GetY() + other->GetHeight() / 2 > GetY() - GetHeight() / 2);
+    return collidingX && collidingY;
+}
