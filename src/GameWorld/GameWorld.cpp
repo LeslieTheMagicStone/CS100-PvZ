@@ -15,11 +15,11 @@ void GameWorld::Init()
   // Init time.
   m_timeTicks = 0;
   // Init sun.
-  m_sun = 500;
+  m_sun = 50;
   // Init wave.
   m_wave = 0;
   // Init wave timer.
-  m_waveTimerTicks = 1;
+  m_waveTimerTicks = 1200;
   // Init selected seed.
   m_selectedActionType = ActionType::NONE;
   // Add a background.
