@@ -4,8 +4,11 @@
 Plant::Plant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID)
     : GameObject(_pGameWorld, imageID, x, y, LAYER_PLANTS, 60, 80, animID) {}
 
+EatablePlant::EatablePlant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID, int maxHealth)
+    : Plant(_pGameWorld, imageID, x, y, animID), m_maxHealth(maxHealth), m_health(maxHealth) {}
+
 Sunflower::Sunflower(pGameWorld _pGameWorld, int x, int y)
-    : Plant(_pGameWorld, IMGID_SUNFLOWER, x, y, ANIMID_IDLE_ANIM), sunTimerTicks(randInt(30, 600)) {}
+    : EatablePlant(_pGameWorld, IMGID_SUNFLOWER, x, y, ANIMID_IDLE_ANIM, 300), sunTimerTicks(randInt(30, 600)) {}
 
 void Sunflower::Update()
 {
@@ -24,7 +27,7 @@ void Sunflower::Update()
 void Sunflower::OnClick() {}
 
 Peashooter::Peashooter(pGameWorld _pGameWorld, int x, int y)
-    : Plant(_pGameWorld, IMGID_PEASHOOTER, x, y, ANIMID_IDLE_ANIM), shootTimerTicks(0) {}
+    : EatablePlant(_pGameWorld, IMGID_PEASHOOTER, x, y, ANIMID_IDLE_ANIM, 300), shootTimerTicks(0) {}
 
 void Peashooter::Update()
 {
@@ -35,3 +38,24 @@ void Peashooter::Update()
 }
 
 void Peashooter::OnClick() {}
+
+Wallnut::Wallnut(pGameWorld _pGameWorld, int x, int y)
+    : EatablePlant(_pGameWorld, IMGID_WALLNUT, x, y, ANIMID_IDLE_ANIM, 4000) {}
+
+void Wallnut::Update() {}
+
+void Wallnut::OnClick() {}
+
+CherryBomb::CherryBomb(pGameWorld _pGameWorld, int x, int y)
+    : Plant(_pGameWorld, IMGID_CHERRY_BOMB, x, y, ANIMID_IDLE_ANIM), m_timerTicks(15) {}
+
+void CherryBomb::Update() {}
+
+void CherryBomb::OnClick() {}
+
+Repeater::Repeater(pGameWorld _pGameWorld, int x, int y)
+    : EatablePlant(_pGameWorld, IMGID_REPEATER, x, y, ANIMID_IDLE_ANIM, 300) {}
+
+void Repeater::Update() {}
+
+void Repeater::OnClick() {}

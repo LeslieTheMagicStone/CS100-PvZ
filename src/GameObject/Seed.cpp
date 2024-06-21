@@ -20,3 +20,12 @@ SunflowerSeed::SunflowerSeed(pGameWorld _pGameWorld, int x, int y)
 
 PeashooterSeed::PeashooterSeed(pGameWorld _pGameWorld, int x, int y)
     : Seed(_pGameWorld, IMGID_SEED_PEASHOOTER, x, y, SeedType::PEASHOOTER, 100, 240) {}
+
+WallnutSeed::WallnutSeed(pGameWorld _pGameWorld, int x, int y)
+    : Seed(_pGameWorld, IMGID_SEED_WALLNUT, x, y, SeedType::WALLNUT, 50, 900) {}
+
+CherryBombSeed::CherryBombSeed(pGameWorld _pGameWorld, int x, int y)
+    : Seed(_pGameWorld, IMGID_SEED_CHERRY_BOMB, x, y, SeedType::CHERRYBOMB, 150, 1200) {}
+
+RepeaterSeed::RepeaterSeed(pGameWorld _pGameWorld, int x, int y)
+    : Seed(_pGameWorld, IMGID_SEED_REPEATER, x, y, SeedType::REPEATER, 200, 240) {}

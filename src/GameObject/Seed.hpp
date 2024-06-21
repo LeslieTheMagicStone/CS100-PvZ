@@ -29,4 +29,22 @@ public:
   PeashooterSeed(pGameWorld _pGameWorld, int x, int y);
 };
 
+class WallnutSeed : public Seed
+{
+public:
+  WallnutSeed(pGameWorld _pGameWorld, int x, int y);
+};
+
+class CherryBombSeed : public Seed
+{
+  public:
+    CherryBombSeed(pGameWorld _pGameWorld, int x, int y);
+};
+
+class RepeaterSeed : public Seed
+{
+  public:
+    RepeaterSeed(pGameWorld _pGameWorld, int x, int y);
+};
+
 #endif // !SEED_HPP__

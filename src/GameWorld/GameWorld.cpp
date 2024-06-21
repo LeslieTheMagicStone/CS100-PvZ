@@ -27,6 +27,9 @@ void GameWorld::Init()
   // Add seed selection buttons.
   m_gameObjects.push_back(std::make_shared<SunflowerSeed>(shared_from_this(), 130, WINDOW_HEIGHT - 44));
   m_gameObjects.push_back(std::make_shared<PeashooterSeed>(shared_from_this(), 190, WINDOW_HEIGHT - 44));
+  m_gameObjects.push_back(std::make_shared<WallnutSeed>(shared_from_this(), 250, WINDOW_HEIGHT - 44));
+  m_gameObjects.push_back(std::make_shared<CherryBombSeed>(shared_from_this(), 310, WINDOW_HEIGHT - 44));
+  m_gameObjects.push_back(std::make_shared<RepeaterSeed>(shared_from_this(), 370, WINDOW_HEIGHT - 44));
 
   // m_gameObjects.push_back(std::make_shared<Pea>(shared_from_this(), 100, 100, false));
 }

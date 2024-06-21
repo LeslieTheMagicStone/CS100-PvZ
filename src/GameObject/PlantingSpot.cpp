@@ -18,6 +18,15 @@ void PlantingSpot::OnClick()
     case SeedType::PEASHOOTER:
         Instantiate(std::make_shared<Peashooter>(m_pGameWorld, GetX(), GetY()));
         break;
+    case SeedType::WALLNUT:
+        Instantiate(std::make_shared<Wallnut>(m_pGameWorld, GetX(), GetY()));
+        break;
+    case SeedType::CHERRYBOMB:
+        Instantiate(std::make_shared<CherryBomb>(m_pGameWorld, GetX(), GetY()));
+        break;
+    case SeedType::REPEATER:
+        Instantiate(std::make_shared<Repeater>(m_pGameWorld, GetX(), GetY()));
+        break;
     }
     m_pGameWorld->SetSelectedSeedType(SeedType::NONE);
 }

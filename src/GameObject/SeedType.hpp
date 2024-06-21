@@ -6,6 +6,9 @@ enum class SeedType
   NONE,
   SUNFLOWER,
   PEASHOOTER,
+  WALLNUT,
+  CHERRYBOMB,
+  REPEATER,
 };
 
 #endif // !SEEDTYPE_HPP__
