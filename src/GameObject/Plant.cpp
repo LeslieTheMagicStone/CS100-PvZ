@@ -91,7 +91,7 @@ void Wallnut::Update()
 {
     if (GetDead())
         return;
-        
+
     if (!m_isCracked && GetHealth() * 3 < GetMaxHealth())
     {
         ChangeImage(IMGID_WALLNUT_CRACKED);
@@ -114,7 +114,7 @@ void CherryBomb::Update()
 }
 
 Repeater::Repeater(pGameWorld _pGameWorld, int x, int y)
-    : Shooter(_pGameWorld, IMGID_REPEATER, x, y, ANIMID_IDLE_ANIM, 300, 30), m_shootTimerTicks(0), m_remainingShots(2), m_continuousShootTimerTicks(0) {}
+    : Shooter(_pGameWorld, IMGID_REPEATER, x, y, ANIMID_IDLE_ANIM, 300, 30), m_shootTimerTicks(0), m_remainingShots(0), m_continuousShootTimerTicks(0) {}
 
 void Repeater::Update()
 {
