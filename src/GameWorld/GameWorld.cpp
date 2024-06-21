@@ -47,9 +47,12 @@ LevelStatus GameWorld::Update()
 {
   // 0. Update time.
   m_timeTicks++;
+
   // 1. Generate natural sun.
   if (m_timeTicks % 300 == 180)
+
     AddToGameObjects(std::make_shared<NaturalSun>(shared_from_this(), randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1));
+
   // 2. Determine whether to generate zombies.
   int zombieCount = 0;
   if (m_waveTimerTicks == 0)
@@ -59,6 +62,7 @@ LevelStatus GameWorld::Update()
     zombieCount = (15 + m_wave) / 10;
   }
   m_waveTimerTicks--;
+
   // 3. Generate zombies.
   int P1 = 20;
   int P2 = 2 * std::max(m_wave - 8, 0);
@@ -76,9 +80,11 @@ LevelStatus GameWorld::Update()
     else
       AddToGameObjects(std::make_shared<BucketHeadZombie>(shared_from_this(), randX, randY));
   }
+
   // 4. Update all game objects.
   for (auto gameObject : m_gameObjects)
     gameObject->Update();
+
   // 5. Check collisions.
   // Zombies -> Eatable plants.
   for (auto zombie : m_zombies)
@@ -110,6 +116,8 @@ LevelStatus GameWorld::Update()
       m_wavesSurvivedText.SetText(std::to_string(m_wave));
       return LevelStatus::LOSING;
     }
+
+  // 8. Double check for collision - not necessary in my inplementation.
 
   // 9. Update text UIs.
   m_sunText.SetText(std::to_string(m_sun));
