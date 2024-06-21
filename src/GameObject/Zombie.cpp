@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
 
 Zombie::Zombie(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID, int health, int damage, int speed)
-    : GameObject(_pGameWorld, imageID, x, y, LAYER_ZOMBIES, 20, 80, animID), m_health(health), m_damage(damage), m_speed(speed), m_isEating(false) {}
+    : GameObject(_pGameWorld, imageID, x, y, LAYER_ZOMBIES, 20, 80, animID, CollisionCheckTag::ZOMBIE), m_health(health), m_damage(damage), m_speed(speed), m_isEating(false), m_moveAnim(animID) {}
 
 void Zombie::Update()
 {
@@ -14,19 +14,35 @@ void Zombie::Update()
     }
 }
 
-void Zombie::OnClick(){}
+void Zombie::OnClick() {}
 
 int Zombie::GetHealth() const { return m_health; }
 
 void Zombie::TakeDamage(int damage)
 {
-    if(m_health > damage)
+    if (m_health > damage)
         m_health -= damage;
     else
         m_health = 0;
 
     if (m_health == 0)
         Destroy();
+}
+
+int Zombie::GetDamage() const { return m_damage; }
+
+void Zombie::SetEating(bool value)
+{
+    if (!m_isEating && value)
+    {
+        PlayAnimation(ANIMID_EAT_ANIM);
+        m_isEating = true;
+    }
+    else if (m_isEating && !value)
+    {
+        PlayAnimation(m_moveAnim);
+        m_isEating = false;
+    }
 }
 
 RegularZombie::RegularZombie(pGameWorld _pGameWorld, int x, int y)

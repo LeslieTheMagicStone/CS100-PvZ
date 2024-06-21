@@ -2,8 +2,8 @@
 #include "Sun.hpp"
 #include "GameWorld.hpp"
 
-Plant::Plant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID)
-    : GameObject(_pGameWorld, imageID, x, y, LAYER_PLANTS, 60, 80, animID) {}
+Plant::Plant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID, CollisionCheckTag collisionCheckTag)
+    : GameObject(_pGameWorld, imageID, x, y, LAYER_PLANTS, 60, 80, animID, collisionCheckTag) {}
 
 void Plant::OnClick()
 {
@@ -15,7 +15,18 @@ void Plant::OnClick()
 }
 
 EatablePlant::EatablePlant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID, int maxHealth)
-    : Plant(_pGameWorld, imageID, x, y, animID), m_maxHealth(maxHealth), m_health(maxHealth) {}
+    : Plant(_pGameWorld, imageID, x, y, animID, CollisionCheckTag::EATABLEPLANT), m_maxHealth(maxHealth), m_health(maxHealth) {}
+
+int EatablePlant::GetMaxHealth() const { return m_maxHealth; }
+
+int EatablePlant::GetHealth() const { return m_health; }
+
+void EatablePlant::TakeDamage(int damage)
+{
+    m_health = std::max(0, m_health - damage);
+    if (m_health == 0)
+        Destroy();
+}
 
 Sunflower::Sunflower(pGameWorld _pGameWorld, int x, int y)
     : EatablePlant(_pGameWorld, IMGID_SUNFLOWER, x, y, ANIMID_IDLE_ANIM, 300), m_sunTimerTicks(randInt(30, 600)) {}

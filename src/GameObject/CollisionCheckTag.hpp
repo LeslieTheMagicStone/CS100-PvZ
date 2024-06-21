@@ -1,0 +1,11 @@
+#ifndef COLLISIONCHECKTAG_HPP__
+#define COLLISIONCHECKTAG_HPP__
+
+enum class CollisionCheckTag
+{
+  NONE,
+  EATABLEPLANT,
+  ZOMBIE,
+};
+
+#endif // !COLLISIONCHECKTAG_HPP__

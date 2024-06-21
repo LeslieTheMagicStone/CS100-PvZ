@@ -3,6 +3,7 @@
 
 #include <memory>
 #include "ObjectBase.hpp"
+#include "CollisionCheckTag.hpp"
 
 // Declares the class name GameWorld so that its pointers can be used.
 class GameWorld;
@@ -16,7 +17,7 @@ class GameObject : public ObjectBase, public std::enable_shared_from_this<GameOb
 public:
   using std::enable_shared_from_this<GameObject>::shared_from_this; // Use shared_from_this() instead of "this".
 
-  GameObject(pGameWorld _pGameWorld, ImageID imageID, int x, int y, LayerID layer, int width, int height, AnimID animID);
+  GameObject(pGameWorld _pGameWorld, ImageID imageID, int x, int y, LayerID layer, int width, int height, AnimID animID, CollisionCheckTag collisionCheckTag = CollisionCheckTag::NONE);
 
   void Destroy();
 
@@ -26,6 +27,8 @@ public:
 
   bool CheckCollision(pGameObject other);
 
+  CollisionCheckTag GetCollisionCheckTag() const;
+
   virtual void OnDestroy();
 
 protected:
@@ -33,6 +36,7 @@ protected:
 
 private:
   bool m_isDead;
+  CollisionCheckTag m_collisionCheckTag;
 };
 
 #endif // !GAMEOBJECT_HPP__

@@ -16,11 +16,16 @@ public:
     int GetHealth() const;
     void TakeDamage(int damage);
 
+    int GetDamage() const;
+
+    void SetEating(bool value);
+
 private:
     int m_health;
     int m_damage;
     int m_speed;
     bool m_isEating;
+    AnimID m_moveAnim;
 };
 
 class RegularZombie : public Zombie

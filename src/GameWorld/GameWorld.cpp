@@ -18,24 +18,24 @@ void GameWorld::Init()
   // Init wave.
   m_wave = 0;
   // Init wave timer.
-  m_waveTimerTicks = 1200;
+  m_waveTimerTicks = 1;
   // Init selected seed.
   m_selectedActionType = ActionType::NONE;
   // Add a background.
-  m_gameObjects.push_back(std::make_shared<Background>(shared_from_this()));
+  AddToGameObjects(std::make_shared<Background>(shared_from_this()));
   // Add planting spots.
   for (int row = 0; row < GAME_ROWS; row++)
     for (int col = 0; col < GAME_COLS; col++)
-      m_gameObjects.push_back(
+      AddToGameObjects(
           std::make_shared<PlantingSpot>(shared_from_this(), FIRST_COL_CENTER + col * LAWN_GRID_WIDTH, FIRST_ROW_CENTER + row * LAWN_GRID_HEIGHT));
   // Add seed selection buttons.
-  m_gameObjects.push_back(std::make_shared<SunflowerSeed>(shared_from_this(), 130, WINDOW_HEIGHT - 44));
-  m_gameObjects.push_back(std::make_shared<PeashooterSeed>(shared_from_this(), 190, WINDOW_HEIGHT - 44));
-  m_gameObjects.push_back(std::make_shared<WallnutSeed>(shared_from_this(), 250, WINDOW_HEIGHT - 44));
-  m_gameObjects.push_back(std::make_shared<CherryBombSeed>(shared_from_this(), 310, WINDOW_HEIGHT - 44));
-  m_gameObjects.push_back(std::make_shared<RepeaterSeed>(shared_from_this(), 370, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<SunflowerSeed>(shared_from_this(), 130, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<PeashooterSeed>(shared_from_this(), 190, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<WallnutSeed>(shared_from_this(), 250, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<CherryBombSeed>(shared_from_this(), 310, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<RepeaterSeed>(shared_from_this(), 370, WINDOW_HEIGHT - 44));
   // Add shovel.
-  m_gameObjects.push_back(std::make_shared<Shovel>(shared_from_this(), 600, WINDOW_HEIGHT - 40));
+  AddToGameObjects(std::make_shared<Shovel>(shared_from_this(), 600, WINDOW_HEIGHT - 40));
 }
 
 LevelStatus GameWorld::Update()
@@ -44,7 +44,7 @@ LevelStatus GameWorld::Update()
   m_timeTicks++;
   // 1. Generate natural sun.
   if (m_timeTicks % 300 == 180)
-    m_gameObjects.push_back(std::make_shared<NaturalSun>(shared_from_this(), randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1));
+    AddToGameObjects(std::make_shared<NaturalSun>(shared_from_this(), randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1));
   // 2. Determine whether to generate zombies.
   int zombieCount = 0;
   if (m_waveTimerTicks == 0)
@@ -65,19 +65,36 @@ LevelStatus GameWorld::Update()
     int randX = randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1);
     int randY = FIRST_ROW_CENTER + randRow * LAWN_GRID_HEIGHT;
     if (randNum <= P1)
-      m_gameObjects.push_back(std::make_shared<RegularZombie>(shared_from_this(), randX, randY));
+      AddToGameObjects(std::make_shared<RegularZombie>(shared_from_this(), randX, randY));
     else if (randNum <= P1 + P2)
-      m_gameObjects.push_back(std::make_shared<PoleVaultingZombie>(shared_from_this(), randX, randY));
+      AddToGameObjects(std::make_shared<PoleVaultingZombie>(shared_from_this(), randX, randY));
     else
-      m_gameObjects.push_back(std::make_shared<BucketHeadZombie>(shared_from_this(), randX, randY));
+      AddToGameObjects(std::make_shared<BucketHeadZombie>(shared_from_this(), randX, randY));
   }
   // 4. Update all game objects.
   for (auto gameObject : m_gameObjects)
     gameObject->Update();
+  // 5. Check collisions.
+  // Zombies -> Eatable plants.
+  for (auto zombie : m_zombies)
+  {
+    bool isEating = false;
+    for (auto plant : m_eatablePlants)
+      if (zombie->CheckCollision(plant))
+      {
+        isEating = true;
+        plant->TakeDamage(zombie->GetDamage());
+        break;
+      }
+    zombie->SetEating(isEating);
+  }
 
   // 6. Remove dead game objects.
-  m_gameObjects.remove_if([](auto gameObject)
-                          { return gameObject->GetDead(); });
+  auto IsDead = [](auto gameObject)
+  { return gameObject->GetDead(); };
+  m_gameObjects.remove_if(IsDead);
+  m_eatablePlants.remove_if(IsDead);
+  m_zombies.remove_if(IsDead);
 
   // 9. Update text UIs.
   m_sunText.SetText(std::to_string(m_sun));
@@ -95,6 +112,10 @@ void GameWorld::CleanUp()
 
 void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
 {
+  if (gameObject->GetCollisionCheckTag() == CollisionCheckTag::EATABLEPLANT)
+    m_eatablePlants.push_back(std::dynamic_pointer_cast<EatablePlant>(gameObject));
+  else if (gameObject->GetCollisionCheckTag() == CollisionCheckTag::ZOMBIE)
+    m_zombies.push_back(std::dynamic_pointer_cast<Zombie>(gameObject));
   m_gameObjects.push_back(gameObject);
 }
 

@@ -7,7 +7,7 @@ class Plant : public GameObject
 {
 public:
     Plant() = delete;
-    Plant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID);
+    Plant(pGameWorld _pGameWorld, ImageID imageID, int x, int y, AnimID animID, CollisionCheckTag collisionCheckTag = CollisionCheckTag::NONE);
 
     void OnClick() override;
 };

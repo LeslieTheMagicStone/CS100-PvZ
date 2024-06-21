@@ -22,6 +22,7 @@ add_library(
   Shovel.cpp
   Zombie.hpp
   Zombie.cpp
+  CollisionCheckTag.hpp
 )
 
 target_link_libraries(

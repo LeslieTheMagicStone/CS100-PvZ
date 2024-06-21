@@ -13,6 +13,9 @@
 
 #include "ActionType.hpp"
 
+class Zombie;
+class EatablePlant;
+
 class GameWorld : public WorldBase, public std::enable_shared_from_this<GameWorld>
 {
 public:
@@ -45,6 +48,8 @@ private:
   TextBase m_waveText = TextBase(WINDOW_WIDTH - 130, 5, "Wave: 0", 0.2, 0.2, 0.3, false);
   ActionType m_selectedActionType;
   int m_waveTimerTicks;
+  std::list<std::shared_ptr<EatablePlant>> m_eatablePlants;
+  std::list<std::shared_ptr<Zombie>> m_zombies;
 };
 
 #endif // !GAMEWORLD_HPP__
