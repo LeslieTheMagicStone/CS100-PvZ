@@ -27,4 +27,16 @@ public:
     void OnCollision() override;
 };
 
+class Explosion : public Projectile
+{
+public:
+    Explosion(pGameWorld _pGameWorld, int x, int y);
+
+    void Update() override;
+    void OnCollision() override;
+
+private:
+    int m_lifeTimeTicks;
+};
+
 #endif // !PROJECTILE_HPP__

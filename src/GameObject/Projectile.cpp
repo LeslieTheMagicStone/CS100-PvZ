@@ -26,3 +26,16 @@ void Pea::OnCollision()
 {
     Destroy();
 }
+
+Explosion::Explosion(pGameWorld _pGameWorld, int x, int y)
+    : Projectile(_pGameWorld, IMGID_EXPLOSION, x, y, 3 * LAWN_GRID_WIDTH, 3 * LAWN_GRID_HEIGHT, ANIMID_NO_ANIMATION, 999), m_lifeTimeTicks(3) {}
+
+void Explosion::Update()
+{
+    if (m_lifeTimeTicks == 0)
+        Destroy();
+    else
+        m_lifeTimeTicks--;
+}
+
+void Explosion::OnCollision() {}

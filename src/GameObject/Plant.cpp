@@ -92,7 +92,16 @@ void Wallnut::Update() {}
 CherryBomb::CherryBomb(pGameWorld _pGameWorld, int x, int y)
     : Plant(_pGameWorld, IMGID_CHERRY_BOMB, x, y, ANIMID_IDLE_ANIM), m_timerTicks(15) {}
 
-void CherryBomb::Update() {}
+void CherryBomb::Update()
+{
+    if (m_timerTicks == 0)
+    {
+        Instantiate(std::make_shared<Explosion>(m_pGameWorld, GetX(), GetY()));
+        Destroy();
+    }
+    else
+        m_timerTicks--;
+}
 
 Repeater::Repeater(pGameWorld _pGameWorld, int x, int y)
     : Shooter(_pGameWorld, IMGID_REPEATER, x, y, ANIMID_IDLE_ANIM, 300, 30), m_shootTimerTicks(0), m_remainingShots(2), m_continuousShootTimerTicks(0) {}
