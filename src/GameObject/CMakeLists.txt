@@ -20,6 +20,8 @@ add_library(
   Sun.cpp
   Shovel.hpp
   Shovel.cpp
+  Zombie.hpp
+  Zombie.cpp
 )
 
 target_link_libraries(

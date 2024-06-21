@@ -26,6 +26,8 @@ public:
 
   bool CheckCollision(pGameObject other);
 
+  virtual void OnDestroy();
+
 protected:
   pGameWorld m_pGameWorld;
 

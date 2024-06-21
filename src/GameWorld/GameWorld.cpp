@@ -3,6 +3,7 @@
 #include "Sun.hpp"
 #include "PlantingSpot.hpp"
 #include "Shovel.hpp"
+#include "Zombie.hpp"
 
 GameWorld::GameWorld() {}
 
@@ -37,6 +38,11 @@ void GameWorld::Init()
 
 LevelStatus GameWorld::Update()
 {
+  if (randInt(1, 10) == 1)
+  {
+    int randRow = randInt(0, GAME_ROWS - 1);
+    m_gameObjects.push_back(std::make_shared<RegularZombie>(shared_from_this(), WINDOW_WIDTH - 1, FIRST_ROW_CENTER + randRow * LAWN_GRID_HEIGHT));
+  }
   // 0. Update time.
   m_timeTicks++;
   // 1. Generate natural sun.
