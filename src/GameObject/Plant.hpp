@@ -32,7 +32,7 @@ public:
     void OnClick() override;
 
 private:
-    int sunTimerTicks;
+    int m_sunTimerTicks;
 };
 
 class Peashooter : public EatablePlant
@@ -43,7 +43,7 @@ public:
     void OnClick() override;
 
 private:
-    int shootTimerTicks;
+    int m_shootTimerTicks;
 };
 
 class Wallnut : public EatablePlant
@@ -73,7 +73,7 @@ public:
     void OnClick() override;
 
 private:
-    int shootTimerTicks;
+    int m_shootTimerTicks;
 };
 
 #endif // !PLANT_HPP__
