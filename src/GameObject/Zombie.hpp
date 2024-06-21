@@ -38,6 +38,11 @@ class BucketHeadZombie : public Zombie
 {
 public:
     BucketHeadZombie(pGameWorld _pGameWorld, int x, int y);
+
+    void Update() override;
+
+private:
+    bool m_hasBucket;
 };
 
 class PoleVaultingZombie : public Zombie

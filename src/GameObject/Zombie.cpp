@@ -52,7 +52,21 @@ RegularZombie::RegularZombie(pGameWorld _pGameWorld, int x, int y)
     : Zombie(_pGameWorld, IMGID_REGULAR_ZOMBIE, x, y, ANIMID_WALK_ANIM, 200, 3, 1) {}
 
 BucketHeadZombie::BucketHeadZombie(pGameWorld _pGameWorld, int x, int y)
-    : Zombie(_pGameWorld, IMGID_BUCKET_HEAD_ZOMBIE, x, y, ANIMID_WALK_ANIM, 1100, 3, 1) {}
+    : Zombie(_pGameWorld, IMGID_BUCKET_HEAD_ZOMBIE, x, y, ANIMID_WALK_ANIM, 1100, 3, 1), m_hasBucket(true) {}
+
+void BucketHeadZombie::Update()
+{
+    if (GetDead())
+        return;
+
+    Zombie::Update();
+
+    if (m_hasBucket && GetHealth() < 200)
+    {
+        m_hasBucket = false;
+        ChangeImage(IMGID_REGULAR_ZOMBIE);
+    }
+}
 
 PoleVaultingZombie::PoleVaultingZombie(pGameWorld _pGameWorld, int x, int y)
     : Zombie(_pGameWorld, IMGID_POLE_VAULTING_ZOMBIE, x, y, ANIMID_RUN_ANIM, 340, 3, 2) {}
