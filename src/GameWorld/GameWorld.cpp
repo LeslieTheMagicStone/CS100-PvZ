@@ -42,8 +42,6 @@ void GameWorld::Init()
   m_sunText.SetText("");
   m_waveText.SetText("");
   m_wavesSurvivedText.SetText("");
-
-  AddToGameObjects(std::make_shared<PoleVaultingZombie>(shared_from_this(), WINDOW_WIDTH, FIRST_ROW_CENTER));
 }
 
 LevelStatus GameWorld::Update()
