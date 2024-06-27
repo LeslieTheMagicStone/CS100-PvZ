@@ -42,9 +42,9 @@ void GameWorld::Init()
   AddToGameObjects(std::make_shared<Shovel>(m_instance, 600, WINDOW_HEIGHT - 40));
 
   // Init text UIs.
-  m_sunText.SetText("");
-  m_waveText.SetText("");
-  m_wavesSurvivedText.SetText("");
+  m_sunText = std::make_shared<TextBase>(61, WINDOW_HEIGHT - 80, "", 0.3, 0.3, 0.4, true);
+  m_waveText = std::make_shared<TextBase>(WINDOW_WIDTH - 130, 5, "", 0.2, 0.2, 0.3, false);
+  m_wavesSurvivedText = std::make_shared<TextBase>(WINDOW_WIDTH / 2 - 67, 50, "", 1, 1, 1, true);
 }
 
 LevelStatus GameWorld::Update()
@@ -123,17 +123,17 @@ LevelStatus GameWorld::Update()
   for (auto zombie : m_zombies)
     if (zombie->GetX() < 0)
     {
-      m_sunText.SetText("");
-      m_waveText.SetText("");
-      m_wavesSurvivedText.SetText(std::to_string(m_wave));
+      m_sunText->SetText("");
+      m_waveText->SetText("");
+      m_wavesSurvivedText->SetText(std::to_string(m_wave));
       return LevelStatus::LOSING;
     }
 
   // 8. Double check for collision - not necessary in my inplementation.
 
   // 9. Update text UIs.
-  m_sunText.SetText(std::to_string(m_sun));
-  m_waveText.SetText("Wave: " + std::to_string(m_wave));
+  m_sunText->SetText(std::to_string(m_sun));
+  m_waveText->SetText("Wave: " + std::to_string(m_wave));
 
   // 10. Return the level status.
   return LevelStatus::ONGOING;
@@ -146,6 +146,10 @@ void GameWorld::CleanUp()
   m_eatablePlants.clear();
   m_zombies.clear();
   m_projectiles.clear();
+
+  m_sunText.reset();
+  m_waveText.reset();
+  m_wavesSurvivedText.reset();
 }
 
 void GameWorld::AddToGameObjects(std::shared_ptr<GameObject> gameObject)
@@ -186,9 +190,9 @@ void GameWorld::SetSelectedActionType(ActionType seedType)
 
 bool GameWorld::CheckZombieCollision(pConstGameObject gameObject) const
 {
-    for (auto other : m_zombies)
-      if (gameObject->CheckCollision(other))
-        return true;
+  for (auto other : m_zombies)
+    if (gameObject->CheckCollision(other))
+      return true;
   return false;
 }
 

@@ -46,14 +46,14 @@ private:
   long long m_timeTicks;
   int m_sun;
   int m_wave;
-  TextBase m_sunText = TextBase(61, WINDOW_HEIGHT - 80, "", 0.3, 0.3, 0.4, true);
-  TextBase m_waveText = TextBase(WINDOW_WIDTH - 130, 5, "", 0.2, 0.2, 0.3, false);
+  std::shared_ptr<TextBase> m_sunText;
+  std::shared_ptr<TextBase> m_waveText;
+  std::shared_ptr<TextBase> m_wavesSurvivedText;
   ActionType m_selectedActionType;
   int m_waveTimerTicks;
   std::list<std::shared_ptr<EatablePlant>> m_eatablePlants;
   std::list<std::shared_ptr<Zombie>> m_zombies;
   std::list<std::shared_ptr<Projectile>> m_projectiles;
-  TextBase m_wavesSurvivedText = TextBase(WINDOW_WIDTH / 2 - 67, 50, "", 1, 1, 1, true);
 };
 
 #endif // !GAMEWORLD_HPP__
