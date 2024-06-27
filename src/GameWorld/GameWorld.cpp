@@ -12,6 +12,8 @@ GameWorld::~GameWorld() {}
 
 void GameWorld::Init()
 {
+  // Init instance.
+  m_instance = shared_from_this();
   // Init time.
   m_timeTicks = 0;
   // Init sun.
@@ -23,20 +25,20 @@ void GameWorld::Init()
   // Init selected seed.
   m_selectedActionType = ActionType::NONE;
   // Add a background.
-  AddToGameObjects(std::make_shared<Background>(shared_from_this()));
+  AddToGameObjects(std::make_shared<Background>(m_instance));
   // Add planting spots.
   for (int row = 0; row < GAME_ROWS; row++)
     for (int col = 0; col < GAME_COLS; col++)
       AddToGameObjects(
-          std::make_shared<PlantingSpot>(shared_from_this(), FIRST_COL_CENTER + col * LAWN_GRID_WIDTH, FIRST_ROW_CENTER + row * LAWN_GRID_HEIGHT));
+          std::make_shared<PlantingSpot>(m_instance, FIRST_COL_CENTER + col * LAWN_GRID_WIDTH, FIRST_ROW_CENTER + row * LAWN_GRID_HEIGHT));
   // Add seed selection buttons.
-  AddToGameObjects(std::make_shared<SunflowerSeed>(shared_from_this(), 130, WINDOW_HEIGHT - 44));
-  AddToGameObjects(std::make_shared<PeashooterSeed>(shared_from_this(), 190, WINDOW_HEIGHT - 44));
-  AddToGameObjects(std::make_shared<WallnutSeed>(shared_from_this(), 250, WINDOW_HEIGHT - 44));
-  AddToGameObjects(std::make_shared<CherryBombSeed>(shared_from_this(), 310, WINDOW_HEIGHT - 44));
-  AddToGameObjects(std::make_shared<RepeaterSeed>(shared_from_this(), 370, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<SunflowerSeed>(m_instance, 130, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<PeashooterSeed>(m_instance, 190, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<WallnutSeed>(m_instance, 250, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<CherryBombSeed>(m_instance, 310, WINDOW_HEIGHT - 44));
+  AddToGameObjects(std::make_shared<RepeaterSeed>(m_instance, 370, WINDOW_HEIGHT - 44));
   // Add shovel.
-  AddToGameObjects(std::make_shared<Shovel>(shared_from_this(), 600, WINDOW_HEIGHT - 40));
+  AddToGameObjects(std::make_shared<Shovel>(m_instance, 600, WINDOW_HEIGHT - 40));
 
   // Init text UIs.
   m_sunText.SetText("");
@@ -52,7 +54,7 @@ LevelStatus GameWorld::Update()
   // 1. Generate natural sun.
   if (m_timeTicks % 300 == 180)
 
-    AddToGameObjects(std::make_shared<NaturalSun>(shared_from_this(), randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1));
+    AddToGameObjects(std::make_shared<NaturalSun>(m_instance, randInt(75, WINDOW_WIDTH - 75), WINDOW_HEIGHT - 1));
 
   // 2. Determine whether to generate zombies.
   int zombieCount = 0;
@@ -75,11 +77,11 @@ LevelStatus GameWorld::Update()
     int randX = randInt(WINDOW_WIDTH - 40, WINDOW_WIDTH - 1);
     int randY = FIRST_ROW_CENTER + randRow * LAWN_GRID_HEIGHT;
     if (randNum <= P1)
-      AddToGameObjects(std::make_shared<RegularZombie>(shared_from_this(), randX, randY));
+      AddToGameObjects(std::make_shared<RegularZombie>(m_instance, randX, randY));
     else if (randNum <= P1 + P2)
-      AddToGameObjects(std::make_shared<PoleVaultingZombie>(shared_from_this(), randX, randY));
+      AddToGameObjects(std::make_shared<PoleVaultingZombie>(m_instance, randX, randY));
     else
-      AddToGameObjects(std::make_shared<BucketHeadZombie>(shared_from_this(), randX, randY));
+      AddToGameObjects(std::make_shared<BucketHeadZombie>(m_instance, randX, randY));
   }
 
   // 4. Update all game objects.
