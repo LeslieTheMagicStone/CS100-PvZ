@@ -1,22 +1,23 @@
 cmake_minimum_required(VERSION 3.16)
 
 add_library(
-  GameObject
+  Seed
   STATIC
-  GameObject.hpp
-  GameObject.cpp
+  Seed.hpp
+  Seed.cpp
 )
 
 target_link_libraries(
+  Seed
   GameObject
-  Framework
+  GameWorld
+  CooldownMask
 )
 
 target_include_directories(
-  GameObject
+  Seed
   PUBLIC 
-  ${CMAKE_SOURCE_DIR}/src/
-  ${CMAKE_SOURCE_DIR}/src/Framework/
   ${CMAKE_SOURCE_DIR}/src/GameWorld/
   ${CMAKE_SOURCE_DIR}/src/GameObject/
+  ${CMAKE_SOURCE_DIR}/src/CooldownMask/
 )

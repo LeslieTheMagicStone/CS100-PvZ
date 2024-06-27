@@ -5,6 +5,7 @@
 #include "Shovel.hpp"
 #include "Zombie.hpp"
 #include "Projectile.hpp"
+#include "Seed.hpp"
 
 GameWorld::GameWorld() {}
 

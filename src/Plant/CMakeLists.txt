@@ -1,22 +1,27 @@
 cmake_minimum_required(VERSION 3.16)
 
 add_library(
-  GameObject
+  Plant
   STATIC
-  GameObject.hpp
-  GameObject.cpp
+  Plant.hpp
+  Plant.cpp
 )
 
 target_link_libraries(
+  Plant
   GameObject
-  Framework
+  GameWorld
+  Projectile
+  Sun
+  SimpleCollisionBox
 )
 
 target_include_directories(
-  GameObject
+  Plant
   PUBLIC 
-  ${CMAKE_SOURCE_DIR}/src/
-  ${CMAKE_SOURCE_DIR}/src/Framework/
   ${CMAKE_SOURCE_DIR}/src/GameWorld/
   ${CMAKE_SOURCE_DIR}/src/GameObject/
+  ${CMAKE_SOURCE_DIR}/src/Projectile/
+  ${CMAKE_SOURCE_DIR}/src/Sun/
+  ${CMAKE_SOURCE_DIR}/src/SimpleCollisionBox/
 )

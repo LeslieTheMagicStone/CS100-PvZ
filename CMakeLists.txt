@@ -38,6 +38,16 @@ ENDIF()
 add_subdirectory(src/Framework/)
 add_subdirectory(src/GameObject/)
 add_subdirectory(src/GameWorld/)
+add_subdirectory(src/Zombie/)
+add_subdirectory(src/Plant/)
+add_subdirectory(src/PlantingSpot/)
+add_subdirectory(src/Seed/)
+add_subdirectory(src/Projectile/)
+add_subdirectory(src/Shovel/)
+add_subdirectory(src/Sun/)
+add_subdirectory(src/CooldownMask)
+add_subdirectory(src/SimpleCollisionBox)
+add_subdirectory(src/Background)
 #↑↑↑↑↑↑↑↑↑↑↑ ADD YOUR SUBDIRECTORIES HERE ↑↑↑↑↑↑↑↑↑↑↑↑↑
 
 add_executable(

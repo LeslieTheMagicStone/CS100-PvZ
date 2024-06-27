@@ -1,22 +1,23 @@
 cmake_minimum_required(VERSION 3.16)
 
 add_library(
-  GameObject
+  PlantingSpot
   STATIC
-  GameObject.hpp
-  GameObject.cpp
+  PlantingSpot.hpp
+  PlantingSpot.cpp
 )
 
 target_link_libraries(
+  PlantingSpot
   GameObject
-  Framework
+  GameWorld
+  Plant
 )
 
 target_include_directories(
-  GameObject
+  PlantingSpot
   PUBLIC 
-  ${CMAKE_SOURCE_DIR}/src/
-  ${CMAKE_SOURCE_DIR}/src/Framework/
   ${CMAKE_SOURCE_DIR}/src/GameWorld/
   ${CMAKE_SOURCE_DIR}/src/GameObject/
+  ${CMAKE_SOURCE_DIR}/src/Plant/
 )

@@ -1,22 +1,21 @@
 cmake_minimum_required(VERSION 3.16)
 
 add_library(
-  GameObject
+  Zombie
   STATIC
-  GameObject.hpp
-  GameObject.cpp
+  Zombie.hpp
+  Zombie.cpp
 )
 
 target_link_libraries(
+  Zombie
   GameObject
-  Framework
+  GameWorld
 )
 
 target_include_directories(
-  GameObject
+  Zombie
   PUBLIC 
-  ${CMAKE_SOURCE_DIR}/src/
-  ${CMAKE_SOURCE_DIR}/src/Framework/
   ${CMAKE_SOURCE_DIR}/src/GameWorld/
   ${CMAKE_SOURCE_DIR}/src/GameObject/
 )

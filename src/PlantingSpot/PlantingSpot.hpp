@@ -2,7 +2,6 @@
 #define PLANTINGSPOT_HPP__
 
 #include "Plant.hpp"
-#include "Seed.hpp"
 
 class PlantingSpot : public GameObject
 {

@@ -1,22 +1,21 @@
 cmake_minimum_required(VERSION 3.16)
 
 add_library(
-  GameObject
+  Projectile
   STATIC
-  GameObject.hpp
-  GameObject.cpp
+  Projectile.hpp
+  Projectile.cpp
 )
 
 target_link_libraries(
+  Projectile
   GameObject
-  Framework
+  GameWorld
 )
 
 target_include_directories(
-  GameObject
+  Projectile
   PUBLIC 
-  ${CMAKE_SOURCE_DIR}/src/
-  ${CMAKE_SOURCE_DIR}/src/Framework/
   ${CMAKE_SOURCE_DIR}/src/GameWorld/
   ${CMAKE_SOURCE_DIR}/src/GameObject/
 )
