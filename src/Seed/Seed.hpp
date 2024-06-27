@@ -2,7 +2,6 @@
 #define SEED_HPP__
 
 #include "GameObject.hpp"
-#include "ActionType.hpp"
 
 class Seed : public GameObject
 {

@@ -90,4 +90,23 @@ const LayerID LAYER_BACKGROUND = 6;
 
 const int MS_PER_FRAME = 33;
 
+enum class ActionType
+{
+  NONE,
+  SHOVEL,
+  SUNFLOWER,
+  PEASHOOTER,
+  WALLNUT,
+  CHERRYBOMB,
+  REPEATER,
+};
+
+enum class CollisionCheckTag
+{
+  NONE,
+  EATABLEPLANT,
+  ZOMBIE,
+  PROJECTILE,
+};
+
 #endif // !UTILS_HPP__

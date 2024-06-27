@@ -3,7 +3,6 @@
 
 #include <memory>
 #include "ObjectBase.hpp"
-#include "CollisionCheckTag.hpp"
 
 // Declares the class name GameWorld so that its pointers can be used.
 class GameWorld;

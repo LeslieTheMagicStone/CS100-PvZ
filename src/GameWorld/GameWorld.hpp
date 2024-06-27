@@ -11,9 +11,6 @@
 #include "TextBase.hpp"
 #include "utils.hpp"
 
-#include "ActionType.hpp"
-#include "CollisionCheckTag.hpp"
-
 class Zombie;
 class EatablePlant;
 class Projectile;

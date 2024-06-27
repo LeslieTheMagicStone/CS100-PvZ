@@ -2,7 +2,6 @@
 #define SIMPLECOLLISIONBOX_HPP__
 
 #include "GameObject.hpp"
-#include "CollisionCheckTag.hpp"
 
 class SimpleCollisionBox : public GameObject
 {
